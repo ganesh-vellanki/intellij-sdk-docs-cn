@@ -12,7 +12,7 @@ redirect_from:
 
 ## 入门
 
-* [**什么是 IntelliJ Platform?**](intellij_platform.md)
+* [**什么是 IntelliJ Platform？**](intellij_platform.md)
 * [**关于这个指南**](about.md)
     * [**关键主题**](key_topics.md)
 * [**获取帮助**](getting_help.md)

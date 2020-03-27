@@ -8,28 +8,28 @@ redirect_from:
 
 [![official JetBrains project](https://jb.gg/badges/official-flat-square.svg)](https://confluence.jetbrains.com/display/ALL/JetBrains+on+GitHub)
 
-Welcome to the _IntelliJ Platform_ SDK. This is the primary source of documentation for extending the _IntelliJ Platform_, by creating plugins, custom language support or building a custom IDE.
+欢迎来到 _IntelliJ Platform_ SDK。这是通过创建插件，自定义语言支持，或构建自定义 IDE 来扩展 _IntelliJ Platform_ 的主要文档来源。
 
-## Getting Started
+## 入门
 
-* [**What is the IntelliJ Platform?**](intellij_platform.md)
-* [**About this Guide**](about.md)
-    * [**Key Topics**](key_topics.md)
-* [**Getting Help**](getting_help.md)
-* [**Getting Started**](/basics/getting_started.md)
-* [**Useful Links**](/appendix/resources/useful_links.md)
+* [**什么是 IntelliJ Platform?**](intellij_platform.md)
+* [**关于这个指南**](about.md)
+    * [**关键主题**](key_topics.md)
+* [**获取帮助**](getting_help.md)
+* [**入门**](/basics/getting_started.md)
+* [**有用的链接**](/appendix/resources/useful_links.md)
 
-## Updates
-See [Content Updates](content_updates.md) for latest changes. Follow [JBPlatform](https://twitter.com/JBPlatform/) on Twitter and visit [JetBrains Platform Blog](https://blog.jetbrains.com/platform/) for latest announcements.
+## 更新
+最新的更改请参见[内容更新](content_updates.md)。 在 Twitter 上关注 [JBPlatform](https://twitter.com/JBPlatform/) 并访问 [JetBrains Platform 博客](https://blog.jetbrains.com/platform/)来获取最新公告。
 
-Upgrading your plugin to the latest platform release? Make sure to check [Incompatible Changes](/reference_guide/api_changes_list.md) as well as [Notable Changes and Features](/reference_guide/api_notable/api_notable.md). 
+升级你的插件到最新 platform 发行版？确保你检查了[不兼容的更改](/reference_guide/api_changes_list.md)以及[值得注意的更改和特性](/reference_guide/api_notable/api_notable.md)。 
 
-[Dynamic Plugins](/basics/plugin_structure/dynamic_plugins.md) are coming in 2020.1. We've also published our roadmap for the IntelliJ Platform for 2020: [Part I](https://blog.jetbrains.com/idea/2019/12/intellij-platform-roadmap-for-2020/) [Part II](https://blog.jetbrains.com/idea/2020/01/intellij-based-ide-features-roadmap-for-2020/)
+2020.1 将迎来[动态插件](/basics/plugin_structure/dynamic_plugins.md)。我们还发布了 2020 年的 IntelliJ Platform 路线图：[部分 I](https://blog.jetbrains.com/idea/2019/12/intellij-platform-roadmap-for-2020/) [部分 II](https://blog.jetbrains.com/idea/2020/01/intellij-based-ide-features-roadmap-for-2020/)
 
-> **NOTE** If your plugin depends on Java functionality and targets 2019.2 or later, please make sure to follow the steps from this [blog post](https://blog.jetbrains.com/platform/2019/06/java-functionality-extracted-as-a-plugin/).
+> **注意** 如果你的插件依赖 Java 功能并且是 2019.2 或更高版本，请确保遵循此[博客文章](https://blog.jetbrains.com/platform/2019/06/java-functionality-extracted-as-a-plugin/)中的步骤。
 
-## Open Source
-This guide is Open Source, and licensed under Apache 2.0. The source (as Markdown) is [hosted on GitHub](https://github.com/JetBrains/intellij-sdk-docs). 
-Please see [CONTRIBUTING.md](/CONTRIBUTING.md) for details on how to host the docs locally and contribute.
+## 开源 
+这个指南是开源的，并且以 Apache 2.0 协议开源。源代码（作为 Markdown）被[托管在 GitHub 上](https://github.com/JetBrains/intellij-sdk-docs)。
+请参见 [CONTRIBUTING.md](/CONTRIBUTING.md) 来获取有关如何在本地上托管文档与进行贡献的详细信息。
 
-Please see [Getting Help](getting_help.md) if you encounter bugs in this guide or require help with missing content. 
+如果你在这个指南中遇到了 bug，或需要缺失内容的帮助，请参见[获取帮助](getting_help.md)。

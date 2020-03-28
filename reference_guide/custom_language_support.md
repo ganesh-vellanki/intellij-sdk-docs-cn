@@ -13,7 +13,7 @@ title: Custom Language Support
 源代码的一部分
 
 
-如果你更喜欢完整的实例而不是此页面上提供的详细介绍，请查看有关在 “.properties” 文件示例中如何定义自定义语言支持的分步教程：
+如果你更喜欢完整的示例而不是此页面上提供的详细介绍，请查看有关在 “.properties” 文件示例中如何定义自定义语言支持的分步教程：
 [自定义语言支持教程](/tutorials/custom_language_support_tutorial.md)
 
 The webinar [How We Built Comma, the Raku IDE, on the IntelliJ Platform](https://blog.jetbrains.com/platform/2020/01/webinar-recording-how-we-built-comma-the-raku-ide-on-the-intellij-platform/) offers an excellent introduction as well.
@@ -38,5 +38,4 @@ The webinar [How We Built Comma, the Raku IDE, on the IntelliJ Platform](https:/
 * [其他次要特性](/reference_guide/custom_language_support/additional_minor_features.md)
 
 
-Please ask questions or suggest missing topics in [plugin development forum](https://intellij-support.jetbrains.com/hc/en-us/community/topics/200366979-IntelliJ-IDEA-Open-API-and-Plugin-Development).
 请在[插件开发论坛](https://intellij-support.jetbrains.com/hc/en-us/community/topics/200366979-IntelliJ-IDEA-Open-API-and-Plugin-Development)提问或建议缺失的主题。

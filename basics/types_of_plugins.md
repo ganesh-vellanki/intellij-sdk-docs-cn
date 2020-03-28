@@ -28,12 +28,12 @@ title: 插件的主要类型
 
 ## 框架整合
 
-Framework integration consists of improved code insight features which are typical for a given framework, as well as the option to use framework-specific functionality directly from the IDE. Sometimes it also includes language support elements for a custom syntax or DSL.
+框架整合包含改进的大爱吗 insight 特性，该特性对于给定的框架是典型的，以及直接从 IDE 使用特性于框架的功能的选项。有时也为自定义语法或 DSL 包含语言支持的元素。
 
-* Specific code insight
-* Direct access to framework-specific functionality
+* 特定代码 insight
+* 直接访问特定框架的功能
 
-Refer to the [Struts 2 plugin](https://plugins.jetbrains.com/plugin/1698) as an example of framework integration.
+参考 [Struts 2 plugin](https://plugins.jetbrains.com/plugin/1698) 作为框架整合的示例。
 
 ## 工具整合
 
@@ -49,5 +49,4 @@ Refer to the [Struts 2 plugin](https://plugins.jetbrains.com/plugin/1698) as an 
 
 ## 用户界面附加组件
 
-Plugins in this category apply various changes to the standard user interface of the IDE. Some newly added components are interactive and provide new functionality, while others are limited to visual modifications only. The [Background Image](https://plugins.jetbrains.com/plugin/72) plugin may serve as an example.
-这个类别的插件将各种更改应用于 IDE 的标准用户界面。
+这个类别的插件将各种更改应用于 IDE 的标准用户界面。一些新添加的组件是交互式的，并提供了新功能，而其他则受限于视觉的修改。[Background Image](https://plugins.jetbrains.com/plugin/72) 插件可以作为示例。

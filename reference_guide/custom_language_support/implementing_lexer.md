@@ -6,7 +6,7 @@ title: 实现词法分析器
 Lexer，或称为
 [词法分析器](https://en.wikipedia.org/wiki/Lexical_analysis)，
 它定义了如何将文件的内容分解为 token。
-词法分析器是自定义语言插件几乎所有特性的基础，从基础语法高亮，到嘎嗷及代码分析特性。
+词法分析器是自定义语言插件几乎所有特性的基础，从基础语法高亮，到高级代码分析特性。
 Lexer 的 API 被定义在
 [`Lexer`](upsource:///platform/core-api/src/com/intellij/lexer/Lexer.java) 接口中。
 

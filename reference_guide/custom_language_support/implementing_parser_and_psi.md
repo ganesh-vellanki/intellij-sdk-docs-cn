@@ -1,35 +1,35 @@
 ---
-title: Implementing a Parser and PSI
+title: 实现解析器与 PSI
 ---
 <!-- Copyright 2000-2020 JetBrains s.r.o. and other contributors. Use of this source code is governed by the Apache 2.0 license that can be found in the LICENSE file. -->
 
-Parsing files in IntelliJ Platform is a two-step process.
-First, an abstract syntax tree (AST) is built, defining the structure of the program.
-AST nodes are created internally by the IDE and are represented by instances of the
+在 IntelliJ Platform 中解析文件的过程有两步。
+首先, 建立一个抽象语法树（AST），定义程序的结构。
+AST 节点通过 IDE 内部地创建，并且由
 [`ASTNode`](upsource:///platform/core-api/src/com/intellij/lang/ASTNode.java)
-class.
-Each AST node has an associated element type
+类的示例表示。
+每个 AST 节点都有一个相关联的元素类型
 [`IElementType`](upsource:///platform/core-api/src/com/intellij/psi/tree/IElementType.java)
-instance, and the element types are defined by the language plugin.
-The top-level node of the AST tree for a file needs to have a special element type, implementing the
+实例，并且元素类型由语言插件定义。
+文件的 AST 树的顶级节点需要拥有一个特殊的元素类型，它实现了
 [`IFileElementType`](upsource:///platform/core-api/src/com/intellij/psi/tree/IFileElementType.java)
-interface.
+接口。
 
-The AST nodes have a direct mapping to text ranges in the underlying document.
-The bottom-most nodes of the AST match individual tokens returned by the lexer, and higher level nodes match multiple-token fragments.
-Operations performed on nodes of the AST tree, such as inserting, removing, reordering nodes and so on, are immediately reflected as changes to the text of the underlying document.
+AST 节点直接映射到底层文档的文本范围。
+AST 的最底层节点与 lexer 返回的单个 token 匹配，并且高阶的节点与多 token 片段匹配。
+在 AST 树上的节点执行的操作，例如插入，移除，重新排序节点等等，立即反映为底层文档的文本的改变。
 
-Second, a PSI, or Program Structure Interface, tree is built on top of the AST, adding semantics and methods for manipulating specific language constructs.
-Nodes of the PSI tree are represented by classes implementing the
+其次，PSI、或是程序结构接口、树是构建在 AST 上的，添加用于处理特定语言构造的语义与方法。
+PSI 树的节点由实现了
 [`PsiElement`](upsource:///platform/core-api/src/com/intellij/psi/PsiElement.java)
-interface and are created by the language plugin in the
+接口的类表示，并且在
 [`ParserDefinition.createElement()`](upsource:///platform/core-api/src/com/intellij/lang/ParserDefinition.java)
-method.
-The top-level node of the PSI tree for a file needs to implement the
+方法中通过语言插件创建。
+对于文件的 PSI 树的顶层节点需要实现
 [`PsiFile`](upsource:///platform/core-api/src/com/intellij/psi/PsiFile.java)
-interface, and is created in the
+接口，并且在
 [`ParserDefinition.createFile()`](upsource:///platform/core-api/src/com/intellij/lang/ParserDefinition.java)
-method.
+方法中创建。
 
 **Example**:
 [`ParserDefinition`](upsource:///plugins/properties/properties-psi-impl/src/com/intellij/lang/properties/parsing/PropertiesParserDefinition.java)

@@ -31,53 +31,53 @@ PSI 树的节点由实现了
 [`ParserDefinition.createFile()`](upsource:///platform/core-api/src/com/intellij/lang/ParserDefinition.java)
 方法中创建。
 
-**Example**:
-[`ParserDefinition`](upsource:///plugins/properties/properties-psi-impl/src/com/intellij/lang/properties/parsing/PropertiesParserDefinition.java)
-for
+**示例**:
 [Properties language plugin](upsource:///plugins/properties)
+的
+[`ParserDefinition`](upsource:///plugins/properties/properties-psi-impl/src/com/intellij/lang/properties/parsing/PropertiesParserDefinition.java)
 
 
-The lifecycle of the PSI is described in more detail in [Fundamentals](/platform/fundamentals.md).
+PSI 的生命周期在 [Fundamentals](/platform/fundamentals.md) 中有更详细的描述。
 
-The base classes for the PSI implementation, including
-[`PsiFileBase`](upsource:///platform/core-impl/src/com/intellij/extapi/psi/PsiFileBase.java),
-the base implementation of
-[`PsiFile`](upsource:///platform/core-api/src/com/intellij/psi/PsiFile.java),
-and
-[`ASTWrapperPsiElement`](upsource:///platform/core-impl/src/com/intellij/extapi/psi/ASTWrapperPsiElement.java),
-the base implementation of
-[`PsiElement`](upsource:///platform/core-api/src/com/intellij/psi/PsiElement.java),
-are provided by *IntelliJ Platform*.
+PSI 实现的基类，包含
+[`PsiFileBase`](upsource:///platform/core-impl/src/com/intellij/extapi/psi/PsiFileBase.java)，它是
+[`PsiFile`](upsource:///platform/core-api/src/com/intellij/psi/PsiFile.java)
+的基础实现，
+以及
+[`ASTWrapperPsiElement`](upsource:///platform/core-impl/src/com/intellij/extapi/psi/ASTWrapperPsiElement.java)，它是
+[`PsiElement`](upsource:///platform/core-api/src/com/intellij/psi/PsiElement.java)
+的基础实现，
+它们由 *IntelliJ Platform* 提供。
 
-While coding parser manually is quite possible, we highly recommend generating parser and corresponding PSI classes from grammars using
-[Grammar-Kit](https://plugins.jetbrains.com/plugin/6606-grammar-kit) plugin.
-Besides code generation, it provides various features for editing grammar files: syntax highlighting, quick navigation, refactorings, and more.
-The Grammar-Kit plugin is built using its own engine; its source code can be found on
-[GitHub](https://github.com/JetBrains/Grammar-Kit).
+虽然可以手写 parser，但我们更推荐使用
+[Grammar-Kit](https://plugins.jetbrains.com/plugin/6606-grammar-kit) 插件从 grammar 中生成 parser 与相应的 PSI 类。
+除了代码生成，它还为编辑 grammar 文件提供了各种特性：语法高亮，快速导航，重构等等。
+Grammar-Kit 插件使用它自己的引擎构建；可以在
+[GitHub](https://github.com/JetBrains/Grammar-Kit) 中找到它的源代码。
 
-For re-using existing ANTLRv4 grammars, see [antlr4-intellij-adaptor](https://github.com/antlr/antlr4-intellij-adaptor) library.
+为了重用已存在的 ANTLRv4 grammar，参见 [antlr4-intellij-adaptor](https://github.com/antlr/antlr4-intellij-adaptor) 库。
 
-The language plugin provides the parser implementation as an implementation of the
+语言插件提供 parser 实现，作为
 [`PsiParser`](upsource:///platform/core-api/src/com/intellij/lang/PsiParser.java)
-interface, returned from
-[`ParserDefinition.createParser()`](upsource:///platform/core-api/src/com/intellij/lang/ParserDefinition.java).
-The parser receives an instance of the
+接口的实现，它从
+[`ParserDefinition.createParser()`](upsource:///platform/core-api/src/com/intellij/lang/ParserDefinition.java) 中返回。
+Parser 接收一个
 [`PsiBuilder`](upsource:///platform/core-api/src/com/intellij/lang/PsiBuilder.java)
-class, which is used to get the stream of tokens from the lexer and to hold the intermediate state of the AST being built.
-The parser must process all tokens returned by the lexer up to the end of stream, in other words until
+类的实例，它用于从 lexer 中获取 token 流，以及保持正在构建的 AST 的中间状态。
+Parser 必须处理由 lexer 返回的所有 token（即使根据语法，该 token 是无效的），也就是说，直到
 [`PsiBuilder.getTokenType()`](upsource:///platform/core-api/src/com/intellij/lang/PsiBuilder.java)
-returns `null`, even if the tokens are not valid according to the language syntax.
+返回 `null`。
 
-**Example**:
-[`PsiParser`](upsource:///plugins/properties/properties-psi-impl/src/com/intellij/lang/properties/parsing/PropertiesParser.java)
-implementation for
-[Properties language plugin](upsource:///plugins/properties/properties-psi-impl/src/com/intellij/lang/properties/).
+**示例**：
+[Properties language plugin](upsource:///plugins/properties/properties-psi-impl/src/com/intellij/lang/properties/)
+的
+[`PsiParser`](upsource:///plugins/properties/properties-psi-impl/src/com/intellij/lang/properties/parsing/PropertiesParser.java) 实现。
 
-The parser works by setting pairs of markers (
+Parser 的工作原理是：在从 lexer 接收的 token 流中设置成对的标记（
 [`PsiBuilder.Marker`](upsource:///platform/core-api/src/com/intellij/lang/PsiBuilder.java)
-instances) within the stream of tokens received from the lexer.
-Each pair of markers defines the range of lexer tokens for a single node in the AST tree.
-If a pair of markers is nested in another pair (starts after its start and ends before its end), it becomes the child node of the outer pair.
+实例）。
+每对标记都为在 AST 树中的单个节点定义 lexer token 的范围。
+如果一对标记嵌套在另一对标记中（在其起点之后开始，在其终点之前结束），它将成为外部对（译者注：pair）的子节点
 
 The element type for the marker pair and for the AST node created from it is specified when the end marker is set, which is done by making call to
 [`PsiBuilder.Marker.done()`](upsource:///platform/core-api/src/com/intellij/lang/PsiBuilder.java).

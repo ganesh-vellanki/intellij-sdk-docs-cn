@@ -4,10 +4,10 @@ REPO=./site/intellij/sdk/docs/
 
 rake build
 
-rm -r ./site/
+rm -rf ./site/
 
 mkdir -p $REPO
-cp ./_site/* $REPO/
+cp -r ./_site/* $REPO/
 
 cd site
 git init

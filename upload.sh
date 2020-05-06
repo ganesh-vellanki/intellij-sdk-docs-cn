@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-$REPO=./site/intellij/sdk/docs/
+REPO=./site/intellij/sdk/docs/
 
 rake build
 

@@ -80,53 +80,53 @@ Parser 的工作原理是：在从 lexer 接收的 token 流中设置成对的�
 如果一对标记嵌套在另一对标记中（在其起点之后开始，在其终点之前结束），它将成为外部对（译者注：pair）的子节点
 
 The element type for the marker pair and for the AST node created from it is specified when the end marker is set, which is done by making call to
-[`PsiBuilder.Marker.done()`](upsource:///platform/core-api/src/com/intellij/lang/PsiBuilder.java).
-Also, it is possible to drop a start marker before its end marker has been set.
-The `drop()` method drops only a single start marker without affecting any markers added after it, and the `rollbackTo()` method drops the start marker and all markers added after it and reverts the lexer position to the start marker.
-These methods can be used to implement lookahead when parsing.
+[`PsiBuilder.Marker.done()`](upsource:///platform/core-api/src/com/intellij/lang/PsiBuilder.java)。
+也可以在设置末端标记之前删除起始标记。
+`drop()` 方法仅删除单个起始标记，而不影响后面添加的任何标记，`roolbackTo()` 方法删除起始标记与之后添加的所有标记，并且将 lexer 的位置还原到起始标记。
+这些方法可以在用于解析时实现 lookahead。
 
-The method
+当你不知道在读取更多输入之前，不知道某个位置需要多少标记的时候，
 [`PsiBuilder.Marker.precede()`](upsource:///platform/core-api/src/com/intellij/lang/PsiBuilder.java)
-is useful for right-to-left parsing when you don't know how many markers you need at a certain position until you read more input.
-For example, a binary expression `a+b+c` needs to be parsed as `( (a+b) + c )`.
-Thus, two start markers are needed at the position of the token 'a', but that is not known until the token 'c' is read.
-When the parser reaches the '+' token following 'b', it can call `precede()` to duplicate the start marker at 'a' position, and then put its matching end marker after 'c'.
+方法对于从右到左的解析很有用。
+例如，二元表达式 `a+b+b` 需要被解析为 `( (a+b) + c )`。
+因此，token “a” 的位置需要两个起始标记，but that is not known until the token 'c' is read。
+当 parser 抵达跟在 “b” 后面的 token “+” 时， 可以调用 `precede()` 来重复位于 “a” 的起始标记，然后将其匹配的结束标记放在 “c” 后。
 
-An important feature of
 [`PsiBuilder`](upsource:///platform/core-api/src/com/intellij/lang/PsiBuilder.java)
-is its handling of whitespace and comments.
-The types of tokens which are treated as whitespace or comments are defined by the methods `getWhitespaceTokens()` and `getCommentTokens()` in the
+的一个重要特性<!--
+-->是它对空格和注释的处理。
+被当做空格或注释的 Token 类型通过
 [`ParserDefinition`](upsource:///platform/core-api/src/com/intellij/lang/ParserDefinition.java)
-class.
+类中的 `getWhitespaceTokens()` 与 `getCommentTokens()` 方法定义。
 [`PsiBuilder`](upsource:///platform/core-api/src/com/intellij/lang/PsiBuilder.java)
-automatically omits whitespace and comment tokens from the stream of tokens it passes to
-[`PsiParser`](upsource:///platform/core-api/src/com/intellij/lang/PsiParser.java),
-and adjusts the token ranges of AST nodes so that leading and trailing whitespace tokens are not included in the node.
+将自动忽略来自它传给
+[`PsiParser`](upsource:///platform/core-api/src/com/intellij/lang/PsiParser.java) 的 token 流的空格和注释 token，
+并且调整 AST 节点的 token 范围，因此节点将不会包含前导与后缀的空格 token。
 
-The token set returned from
+从
 [`ParserDefinition.getCommentTokens()`](upsource:///platform/core-api/src/com/intellij/lang/ParserDefinition.java)
-is also used to search for TODO items.
+返回的 token 集合也用于寻找 TODO 项。
 
-In order to better understand the process of building a PSI tree for a simple expression, you can refer to the following diagram:
+为了更好地理解为简单表达式构建 PSI 树的过程，你可以参照下图：
 
 ![PsiBuilder](img/PsiBuilder.gif)
 
-In general, there is no single right way to implement a PSI for a custom language, and the plugin author can choose the PSI structure and set of methods which are the most convenient for the code which uses the PSI (error analysis, refactorings and so on).
-However, there is one base interface which needs to be used by a custom language PSI implementation in order to support features like rename and find usages.
-Every element which can be renamed or referenced (a class definition, a method definition and so on) needs to implement the
+一般来说，有不止一种正确的方式来为自定义语言实现 PSI，并且插件作者可以选择对于编写代码来说最方便的（错误解析，重构等） PSI 结构和方法集合。
+然而，为了支持类似于重命名与查找使用的功能，自定义语言 PSI 实现需要使用一个基础接口。
+所有可以被重命名或是被引用（类定义，方法定义等）的元素需要实现
 [`PsiNamedElement`](upsource:///platform/core-api/src/com/intellij/psi/PsiNamedElement.java)
-interface, with methods `getName()` and `setName()`.
+接口的 `getName()` 与 `setName()` 方法。
 
-A number of functions which can be used for implementing and using the PSI can be found in the `com.intellij.psi.util` package, and in particular in the
+许多用于实现和使用 PSI 的函数可以在 `com.intellij.psi.util` 包中找到，特别是
 [`PsiUtil`](upsource:///java/java-psi-api/src/com/intellij/psi/util/PsiUtil.java)
-and
+与
 [`PsiTreeUtil`](upsource:///platform/core-api/src/com/intellij/psi/util/PsiTreeUtil.java)
-classes.
+类。
 
-A very helpful tool for debugging the PSI implementation is the
-[PsiViewer plugin](https://plugins.jetbrains.com/plugin/227-psiviewer).
-It can show you the structure of the PSI built by your plugin, the properties of every PSI element and highlight its text range.
+一个对于调试 PSI 实现有帮助的工具：
+[PsiViewer plugin](https://plugins.jetbrains.com/plugin/227-psiviewer)。
+它可以为你展示你的插件所构建的 PSI 结构、所有 PSI 元素的属性和高亮文本范围。
 
-Please see
+更多进阶主题
+请看
 [Indexing and PSI Stubs](/basics/indexing_and_psi_stubs.md)
-for advanced topics.
